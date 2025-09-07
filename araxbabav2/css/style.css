@@ -1,0 +1,618 @@
+:root {
+    --primary-color: #00ffa3;
+    --secondary-color: #0077ff;
+    --dark-color: #121212;
+    --light-color: #f4f4f4;
+    --text-color: #e0e0e0;
+    --card-bg: rgba(18, 18, 18, 0.8);
+    --card-border: rgba(0, 255, 163, 0.3);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #111111;
+    color: var(--text-color);
+    line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Discord Profil Kartı Stilleri */
+.discord-profile {
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* RGB Işık Animasyonu */
+@keyframes rgb-light {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Kart Çevresinde Dolaşan Işık */
+@keyframes border-travel {
+    0% { 
+        transform: rotate(0deg) translateX(50%) translateY(-170px) rotate(0deg);
+    }
+    100% { 
+        transform: rotate(360deg) translateX(50%) translateY(-170px) rotate(-360deg);
+    }
+}
+
+.profile-card {
+    background-color: #000;
+    border-radius: 15px;
+    overflow: visible; /* Işık efektinin dışarı taşmasına izin ver */
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+/* Dolaşan RGB Işık Efekti */
+.profile-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 15px;
+    padding: 1px; /* Işık genişliği */
+    background: linear-gradient(90deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+    background-size: 400% 400%;
+    animation: rgb-light 5s ease infinite;
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none; /* Tıklanabilir arka plan içeriğe */
+    z-index: 1;
+}
+
+/* Dolaşan Işık Noktası */
+.profile-card::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 50%;
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+    z-index: 2;
+    animation: border-travel 5s linear infinite;
+}
+
+/* Başlık ve Banner */
+.profile-header {
+    position: relative;
+}
+
+.banner img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.profile-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+    margin-top: -40px;
+}
+
+.avatar-container {
+    position: relative;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 4px solid #000;
+    background-color: #111;
+}
+
+.avatar-status {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #f24043;
+    font-size: 20px;
+}
+
+/* Servis Baloncuğu */
+.service-bubble {
+    position: absolute;
+    top: 36px;
+    right: -225px;
+    background-color: rgba(20, 20, 20, 0.95);
+    border-radius: 10px;
+    padding: 5px 8px;
+    font-size: 12px;
+    color: #aaa;
+    white-space: nowrap;
+    border: 1px solid #222;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    z-index: 10;
+}
+
+.service-bubble:before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-right: 5px solid rgba(20, 20, 20, 0.95);
+}
+
+.service-bubble i {
+    color: #555;
+    margin-right: 4px;
+    font-size: 9px;
+}
+
+.server-id {
+    color: #555;
+    margin-left: 2px;
+    font-size: 9px;
+}
+
+.edit-button button {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 45px;
+}
+
+/* Profil İçeriği */
+.profile-content {
+    padding: 15px;
+}
+
+.username {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.user-handle {
+    color: #888;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.badges-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #333;
+    background-color: #1110;
+    border-radius: 4px;
+    padding: 2px 4px;
+    margin-left: 5px;
+}
+
+.badge {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin: 0 2px;
+}
+
+.badge.nitro {
+    margin-right: 4px;
+}
+
+.badge.boost {
+    margin-left: 4px;
+}
+
+/* Servis Bağlantısı */
+.server-link-container {
+    margin: 10px 0 15px 0;
+}
+
+.server-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #aaa;
+    font-size: 14px;
+}
+
+.link-icon {
+    margin-right: 8px;
+    color: #aaa;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    border-bottom: 1px solid #333;
+    margin-bottom: 20px;
+}
+
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #888;
+    font-size: 14px;
+    border-bottom: 2px solid transparent;
+    position: relative;
+    transition: color 0.3s ease;
+    overflow: hidden;
+}
+
+.tab:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #00ff00;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.7);
+    border-radius: 2px;
+}
+
+.tab.active {
+    color: #fff;
+    border-bottom: none;
+}
+
+.tab.active:after {
+    width: 100%;
+}
+
+/* Tab içeriği */
+.tab-pane {
+    display: none;
+    opacity: 0;
+    transform: translateY(15px) scale(0.98);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.tab-pane.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Hizmetler sekmesindeki bağlantılar */
+.service-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.service-link {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background-color: rgba(30, 30, 30, 0.7);
+    border-radius: 5px;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.2s ease;
+}
+
+.service-link.itemsatis {
+    border-left: 4px solid #ff9800;
+}
+
+.service-link.hesapcomtr {
+    border-left: 4px solid #2196F3;
+}
+
+.service-link:hover {
+    background-color: rgba(40, 40, 40, 0.8);
+}
+
+.service-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+}
+
+.service-link.itemsatis .service-icon {
+    background-color: #ff9800;
+}
+
+.service-link.hesapcomtr .service-icon {
+    background-color: #2196F3;
+}
+
+/* Biyografi */
+.bio {
+    margin: 15px 0;
+    line-height: 1.5;
+}
+
+.join-date {
+    margin: 15px 0;
+    color: #888;
+    font-size: 14px;
+}
+
+/* Bağlantılar */
+.links {
+    margin: 20px 0;
+}
+
+.links h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.links-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+/* Bu sosyal medya bağlantıları index.php'de kullanılıyor, bu yüzden korunmalı */
+.social-link {
+    padding: 15px;
+    background-color: rgba(18, 18, 18, 0.8);
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.2s ease;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border-left: 4px solid transparent;
+}
+
+.social-link.itemsatis {
+    border-left-color: #ff9800;
+}
+
+.social-link.hesapcomtr {
+    border-left-color: #2196F3;
+}
+
+/* Notlar */
+.notes {
+    margin: 20px 0;
+    color: #888;
+}
+
+.notes h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.note-text {
+    font-size: 14px;
+    font-family: 'Consolas', monospace;
+    background-color: rgba(40, 40, 40, 0.4);
+    padding: 8px 12px;
+    border-radius: 5px;
+    border-left: 3px solid #555;
+}
+
+/* Tab stilleri - index.php'de kullanılıyor, korunmalı */
+.tab.active {
+    color: #fff;
+    border-bottom: 2px solid #00ff00;
+}
+
+/* Tekrarlanan servis grid ikonları */
+.service-grid .social-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+}
+
+/* Tab tıklama efektleri */
+.tab:active {
+    transform: scale(0.97);
+}
+
+.tab:hover {
+    color: #ddd;
+}
+
+/* Tab içerik kutusu */
+.tab-content {
+    position: relative;
+}
+
+/* Tamamlanmamış sosyal medya bağlantıları */
+.social-link.cheatglobal,
+.social-link.discord,
+.social-link.spotify,
+.social-link.github {
+    padding: 8px 12px;
+    background-color: transparent;
+    border: 1px solid #333;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #fff;
+}
+
+.social-link.cheatglobal { border-color: #ff5252; }
+.social-link.discord { border-color: #5865F2; }
+.social-link.spotify { border-color: #1DB954; }
+.social-link.github { border-color: #333; }
+
+.social-icon.cheatglobal,
+.social-icon.discord,
+.social-icon.spotify,
+.social-icon.github {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+.social-icon.cheatglobal { background-color: #ff5252; }
+.social-icon.discord { background-color: #5865F2; }
+.social-icon.spotify { background-color: #1DB954; }
+.social-icon.github { background-color: #333; }
+
+/* Buton İçi Yükleme Animasyonu */
+.social-link, 
+.service-link {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Yükleme Efekti */
+@keyframes fill-button {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* Buton içi dolgu efekti - varsayılan */
+.social-link::before,
+.service-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    z-index: 0;
+    transition: width 0.1s ease;
+}
+
+/* ItemSatis butonları için turuncu yükleme */
+.social-link.itemsatis::before,
+.service-link.itemsatis::before {
+    background: linear-gradient(90deg, 
+        rgba(255, 152, 0, 0.3), 
+        rgba(255, 193, 7, 0.5));
+}
+
+/* Hesap.com.tr butonları için mavi yükleme */
+.social-link.hesapcomtr::before,
+.service-link.hesapcomtr::before {
+    background: linear-gradient(90deg, 
+        rgba(33, 150, 243, 0.3), 
+        rgba(3, 169, 244, 0.5));
+}
+
+/* Discord butonları için mor yükleme */
+.social-link.discord::before {
+    background: linear-gradient(90deg, 
+        rgba(88, 101, 242, 0.3), 
+        rgba(114, 137, 218, 0.5));
+}
+
+/* GitHub butonları için gri yükleme */
+.social-link.github::before {
+    background: linear-gradient(90deg, 
+        rgba(51, 51, 51, 0.3), 
+        rgba(85, 85, 85, 0.5));
+}
+
+/* Spotify butonları için yeşil yükleme */
+.social-link.spotify::before {
+    background: linear-gradient(90deg, 
+        rgba(29, 185, 84, 0.3), 
+        rgba(30, 215, 96, 0.5));
+}
+
+/* CheatGlobal butonları için kırmızı yükleme */
+.social-link.cheatglobal::before {
+    background: linear-gradient(90deg, 
+        rgba(255, 82, 82, 0.3), 
+        rgba(255, 109, 109, 0.5));
+}
+
+/* Dolgu animasyonu aktif hali */
+.social-link.loading::before,
+.service-link.loading::before {
+    animation: fill-button 0.8s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+}
+
+/* Buton içindeki metinlerin üstte kalması için */
+.social-link span,
+.social-link i,
+.service-link span,
+.service-link i,
+.social-icon {
+    position: relative;
+    z-index: 1;
+}
+
+/* Dalga efekti - buton tıklandığında */
+.social-link::after,
+.service-link::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%, -50%);
+    transform-origin: 50% 50%;
+    z-index: 0;
+}
+
+.social-link:active::after,
+.service-link:active::after {
+    animation: ripple 0.4s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        opacity: 1;
+        transform: scale(0, 0);
+    }
+    20% {
+        opacity: 1;
+        transform: scale(25, 25);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(40, 40);
+    }
+} 
